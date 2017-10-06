@@ -1,0 +1,187 @@
+﻿<Window x:Name="main" x:Class="RoadLab.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RoadLab"
+        xmlns:webEye="clr-namespace:WebEye;assembly=WebEye.StreamPlayerControl"
+        mc:Ignorable="d"
+        Title="RoadLab" Height="650" Width="1125" WindowStartupLocation="CenterScreen" Initialized="main_Initialized" Loaded="main_Loaded">
+    <Window.Resources>
+
+        <Storyboard x:Key="sbShowLeftMenu" >
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-150,0,0,0" To="0,0,0,0" DecelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+        <Storyboard x:Key="sbHideLeftMenu">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-150,0,0,0" AccelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+    </Window.Resources>
+    <Grid Margin="0,0,2,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="31*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="56*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="226*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="244*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="24*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="126*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="402*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="398*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="147*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Menu Grid.ColumnSpan="9">
+            <MenuItem Header="Режим" Height="28">
+                <MenuItem Header="Измерение" Name="izmerenieMenu" Click="izmerenieMenu_Click" IsCheckable="True" ></MenuItem>
+                <MenuItem Header="Каллибровка" Name="kallibrovkaMenu" Click="kallibrovkaMenu_Click" IsCheckable="True"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Выход" Name="exitMenu" Click="exitMenu_Click" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Параметры" Height="28">
+                <MenuItem Header="Оборудование" Name="devicesMenu" Click="devicesMenu_Click"></MenuItem>
+                <MenuItem Header="Интерфейс" Name="interfaceMenu" Click="interfaceMenu_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Помощь" Height="28">
+                <MenuItem Header="Справка     F1"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="О программе"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <DockPanel x:Name="topPanel" LastChildFill="False" Grid.Row="1" Background="#FFE4E4E4" Grid.ColumnSpan="8" Grid.RowSpan="3" Grid.Column="1">
+            <Grid Height="71" VerticalAlignment="Top" Width="909">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="31*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="26*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="86*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="70*"/>
+                    <ColumnDefinition Width="160*"/>
+                    <ColumnDefinition Width="98*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="98*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="98*"/>
+                    <ColumnDefinition Width="270*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="playBtn" Content="Play" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="0.04,0.25" Click="playBtn_Click" Grid.RowSpan="3" Height="61" Width="86"/>
+                <Button x:Name="settingsBtn" Content="Settings" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3"/>
+                <TextBox x:Name="speedTxtBox" Text="0.0" Height="26" TextWrapping="Wrap" Grid.Column="5" Grid.Row="3" Background="#FFC7C7C7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsEnabled="False"/>
+                <TextBox x:Name="kmTxtBox" Text="0" Height="26" TextWrapping="Wrap" Grid.Column="7" Grid.Row="3" Background="#FFC7C7C7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsEnabled="False" Margin="1,0,0,0"/>
+                <TextBox x:Name="timeTxtBox" Height="26" TextWrapping="Wrap" Grid.Column="9" Grid.Row="3" Background="#FFC7C7C7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsEnabled="False"/>
+                <Label x:Name="sppedLbl" Content="Скорость, km/h" Grid.Column="5" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label x:Name="kmLbl" Content="Путь, km" Grid.Column="7" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="1,0,0,0"/>
+                <Label x:Name="timeLbl" Content="Время, чч:мм:сс" Grid.Column="9" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+
+        </DockPanel>
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Background="#FFECECEC" Grid.RowSpan="5" Grid.Column="1">
+            <GroupBox x:Name="gpsGroupBox" Header="GPS" Height="85" Width="125">
+                <Grid HorizontalAlignment="Left" Height="89" Margin="0,-14,-2,-12" VerticalAlignment="Top" Width="115">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition Width="42*"/>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="16*"/>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="7*"/>
+                        <RowDefinition Height="17*"/>
+                        <RowDefinition Height="14*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="27*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="label" Content="Спутники" Grid.Column="1" Grid.Row="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="sputnikTxtBox" Grid.Column="4" Text="0" Grid.Row="5" TextWrapping="Wrap" Grid.ColumnSpan="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsEnabled="False"/>
+                    <Image x:Name="gpsImage" Grid.Column="2" Grid.Row="2" Source="images/circle_red.png" Grid.RowSpan="2">
+                    </Image>
+                    <Label x:Name="ppsLbl" Content="PPS" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.RowSpan="2" HorizontalAlignment="Right" Width="33"/>
+                    <Image x:Name="ppsImage" Grid.Column="5" HorizontalAlignment="Left" Source="images/square-red.png" Height="14" Grid.Row="3" VerticalAlignment="Top" Width="16"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox x:Name="insGroupBox" Header="ИНС" Height="85" Width="125">
+                <Grid Margin="-9,-15,-12,-3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="16*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="28*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="43*"/>
+                        <ColumnDefinition Width="39*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="28*"/>
+                        <ColumnDefinition Width="9*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="temperatureLbl" Content="Температруа:" Grid.Column="1" Grid.Row="3" Margin="2,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="temperatureTxtBox" Grid.Column="4" Grid.Row="3" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsEnabled="False"/>
+                    <Image x:Name="insImage" Grid.Column="2" Height="30" Grid.Row="1" Width="39" Source="images/circle_red.png">
+                    </Image>
+                </Grid>
+
+
+            </GroupBox>
+        </StackPanel>
+        <StackPanel Grid.Column="8" HorizontalAlignment="Left" Height="506" Grid.Row="5" VerticalAlignment="Top" Width="147" Background="#FFE2E2E2" Grid.RowSpan="5">
+            <Grid Height="504">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="28*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="75*"/>
+                    <RowDefinition Height="53*"/>
+                    <RowDefinition Height="75*"/>
+                    <RowDefinition Height="54*"/>
+                    <RowDefinition Height="73*"/>
+                    <RowDefinition Height="66*"/>
+                    <RowDefinition Height="69*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="47*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="addKmBtn" Content="KM" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Width="141" Height="75"/>
+                <Button x:Name="addTextBtn" Content="Text" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Top" Width="141" Height="75" Click="addTextBtn_Click"/>
+                <Button x:Name="addAudioBtn" Content="Audio" HorizontalAlignment="Left" Grid.Row="7" VerticalAlignment="Top" Width="141" Height="73" Grid.Column="1"/>
+                <Button x:Name="reverseBtn" Content="Reverse" HorizontalAlignment="Left" Grid.Row="9" VerticalAlignment="Top" Width="141" Height="69" Grid.Column="1"/>
+            </Grid>
+        </StackPanel>
+        <webEye:StreamPlayerControl x:Name="camera1Stream"
+                                         Grid.Column="4" Grid.Row="5"/>
+
+        <webEye:StreamPlayerControl x:Name="camera2Stream"
+                                        Grid.Column="6" Grid.Row="5" Margin="2,0,0,0"/>
+
+
+
+    </Grid>
+</Window>

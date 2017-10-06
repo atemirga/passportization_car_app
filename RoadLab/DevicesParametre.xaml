@@ -1,0 +1,323 @@
+﻿<Window x:Class="RoadLab.DevicesParametre"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RoadLab"
+        xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0"
+        xmlns:webEye="clr-namespace:WebEye;assembly=WebEye.StreamPlayerControl"
+        mc:Ignorable="d"
+        Title="Параметры оборудования" Height="593" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Initialized="Window_Initialized">
+    <Grid Margin="0,0,0,1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="126*"/>
+            <ColumnDefinition Width="385*"/>
+            <ColumnDefinition Width="126*"/>
+            <ColumnDefinition Width="23*"/>
+            <ColumnDefinition Width="102*"/>
+            <ColumnDefinition Width="21*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="91*"/>
+            <RowDefinition Height="183*"/>
+            <RowDefinition Height="157*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="26*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <TabControl x:Name="tabControl" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3">
+
+            <TabItem Header="Видеокамеры">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="18*"/>
+                        <RowDefinition Height="92*"/>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="161*"/>
+                        <RowDefinition Height="22*"/>
+                        <RowDefinition Height="149*"/>
+                        <RowDefinition Height="12*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="290*"/>
+                        <ColumnDefinition Width="51*"/>
+                        <ColumnDefinition Width="285*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <webEye:StreamPlayerControl x:Name="camera1Stream"
+                                        StreamFailed="camera1StreamHandler"
+                                        StreamStarted="camera1StreamHandler"
+                                        StreamStopped="camera1StreamHandler" Margin="0,2,0,0" Grid.Column="1" Grid.Row="3"/>
+
+                    <webEye:StreamPlayerControl x:Name="camera2Stream"
+                                        StreamFailed="camera2StreamHandler"
+                                        StreamStarted="camera2StreamHandler"
+                                        StreamStopped="camera2StreamHandler" Grid.Column="3" Grid.Row="3"/>
+
+                    <GroupBox x:Name="insGroupBox" Header="Текущие данные" Grid.Column="1" Grid.Row="1" Height="92" VerticalAlignment="Top" Grid.ColumnSpan="3">
+                        <Grid HorizontalAlignment="Left" Height="71" Margin="0,0,-1,-1" VerticalAlignment="Top" Width="615">
+                            <CheckBox x:Name="tangazhINSCheckBox" Content="Тангаж" IsChecked="True" Grid.Column="1" VerticalContentAlignment="Center" Grid.RowSpan="2"/>
+                            <CheckBox x:Name="krenINSCheckBox" Content="Крен" IsChecked="True" Grid.Row="2" VerticalContentAlignment="Center" Grid.Column="1"/>
+                            <CheckBox x:Name="kursINSCheckBox" Content="Курс" IsChecked="True" Grid.Row="3" VerticalContentAlignment="Center" Grid.Column="1"/>
+
+                            <TextBox x:Name="tangazhINSTxtBox" Grid.Column="2" TextWrapping="Wrap" Grid.Row="1" VerticalContentAlignment="Center" Margin="0,0,0,6" Grid.RowSpan="2"/>
+                            <TextBox x:Name="krenINSTxtBox" Grid.Column="2" TextWrapping="Wrap" Grid.Row="2" VerticalContentAlignment="Center" Margin="0,0,0,7" Grid.RowSpan="2"/>
+                            <TextBox x:Name="kursINSTxtBox" Grid.Column="2" TextWrapping="Wrap" Grid.Row="3" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="camera1UrlTxt" Grid.Column="5" TextWrapping="Wrap" Text="rtsp://192.168.1.1:554" Grid.Row="1" Foreground="#FFCBB0B0" GotFocus="camera1UrlTxt_GotFocus" LostFocus="camera1UrlTxt_LostFocus" TextChanged="camera1UrlTxt_TextChanged" Grid.ColumnSpan="2" Margin="0,0,89,0"/>
+                            <Button x:Name="camera1ConnBtn" Content="Подключить" Grid.Column="6" Grid.Row="1" Margin="1,0,0,0" Click="camera1ConnBtn_Click"/>
+                            <Label x:Name="label1" Content="Камера 1 :" Grid.Column="4" Grid.Row="1" Width="90" Height="21" VerticalContentAlignment="Center" Padding="4,0" ScrollViewer.CanContentScroll="True" Margin="0,0,4,0" HorizontalContentAlignment="Right"/>
+                            <Label x:Name="label1_Copy" Content="Камера 2 :" Grid.Column="4" Grid.Row="2" Width="90" VerticalContentAlignment="Center" Padding="4,0" ScrollViewer.CanContentScroll="True" HorizontalContentAlignment="Right"/>
+                            <TextBox x:Name="camera2UrlTxt" Grid.Column="5" TextWrapping="Wrap" Text="rtsp://192.168.1.2:554" Grid.Row="2" Foreground="#FFCBB0B0" GotFocus="camera2UrlTxt_GotFocus" LostFocus="camera2UrlTxt_LostFocus"  Height="20" VerticalAlignment="Bottom"/>
+                            <Button x:Name="camera2ConnBtn" Content="Подключить" Grid.Column="6" Grid.Row="2" Click="camera2ConnBtn_Click"/>
+                            <Button x:Name="cameraExecuteBtn" Content="Применить" Grid.Column="6" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Top" Width="89" Height="22" Click="cameraExecuteBtn_Click"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="21*"/>
+                                <RowDefinition Height="20*"/>
+                                <RowDefinition Height="22*"/>
+                                <RowDefinition Height="6*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="80*"/>
+                                <ColumnDefinition Width="77*"/>
+                                <ColumnDefinition Width="48*"/>
+                                <ColumnDefinition Width="90*"/>
+                                <ColumnDefinition Width="207*"/>
+                                <ColumnDefinition Width="90*"/>
+                                <ColumnDefinition Width="20*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </GroupBox>
+                    <Label x:Name="camera1StatusLbl" Grid.Row="4" RenderTransformOrigin="-2.447,0.25" Height="22" Width="292" Padding="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Label x:Name="camera2StatusLbl"  Grid.Column="3" Grid.Row="4" RenderTransformOrigin="-2.447,0.25" Height="22" Width="285" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="ИНС, одометр">
+                <Grid Background="#FFE5E5E5" Margin="0,13,0,-1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="158*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="25*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="94*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="133*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="79*"/>
+                        <ColumnDefinition Width="109*"/>
+                        <ColumnDefinition Width="81*"/>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="204*"/>
+                        <ColumnDefinition Width="143*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox x:Name="cameraGroupBox" Header="Текущие данные" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6">
+                        <Grid HorizontalAlignment="Left" Height="123" Margin="0,0,-2,-2" VerticalAlignment="Top" Width="615">
+                            <CheckBox x:Name="tangazhCameraCheckBox" Content="Тангаж" IsChecked="True" Grid.Column="1" VerticalContentAlignment="Center" Grid.RowSpan="2"/>
+                            <CheckBox x:Name="krenCameraCheckBox" Content="Крен" IsChecked="True" Grid.Row="2" VerticalContentAlignment="Center" Grid.Column="1"/>
+                            <CheckBox x:Name="kursCameraCheckBox" Content="Курс" IsChecked="True" Grid.Row="3" VerticalContentAlignment="Center" Grid.Column="1"/>
+                            <CheckBox x:Name="uskXCameraCheckBox" Content="Ускорение X" Grid.Row="4" VerticalContentAlignment="Center" Grid.Column="1"/>
+                            <CheckBox x:Name="uskYCameraCheckBox" Content="Ускорение Y" Grid.Row="5" VerticalContentAlignment="Center" Grid.Column="1"/>
+                            <CheckBox x:Name="uskZCameraCheckBox" Content="Ускорение Z" Grid.Row="6" VerticalContentAlignment="Center" Grid.Column="1"/>
+                            <TextBox x:Name="tangazhCameraTxtBox" Grid.Column="2" TextWrapping="Wrap" Grid.Row="1" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="krenCameraTxtBox" Grid.Column="2" TextWrapping="Wrap" Grid.Row="2" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="kursCameraTxtBox" Grid.Column="2" TextWrapping="Wrap" Grid.Row="3" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="uskXCameraTxtBox" Grid.Column="2" TextWrapping="Wrap" Grid.Row="4" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="uskYCameraTxtBox" Grid.Column="2" Height="20" TextWrapping="Wrap" Grid.Row="5" VerticalContentAlignment="Center" VerticalAlignment="Top"/>
+                            <TextBox x:Name="uskZCameraTxtBox" Grid.Column="2" TextWrapping="Wrap" Grid.Row="6" VerticalContentAlignment="Center" Margin="0,0,0,1" Grid.RowSpan="2"/>
+                            <d3:ChartPlotter Grid.RowSpan="6" Grid.Column="4" Grid.Row="1" Margin="1,0,0,0" Name="d">
+                                <d3:ChartPlotter.HorizontalAxis>
+                                    <d3:HorizontalAxis Name="timeAxis" />
+                                </d3:ChartPlotter.HorizontalAxis>
+                                <d3:ChartPlotter.VerticalAxis>
+                                    <d3:VerticalAxis Name="accelerationAxis" />
+                                </d3:ChartPlotter.VerticalAxis>
+                            </d3:ChartPlotter>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="18*"/>
+                                <RowDefinition Height="18*"/>
+                                <RowDefinition Height="18*"/>
+                                <RowDefinition Height="18*"/>
+                                <RowDefinition Height="18*"/>
+                                <RowDefinition Height="18*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="80*"/>
+                                <ColumnDefinition Width="77*"/>
+                                <ColumnDefinition Width="57*"/>
+                                <ColumnDefinition Width="394*"/>
+                                <ColumnDefinition Width="4*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox x:Name="stabilizationTempGroup" Header="Температура стабилизации" HorizontalAlignment="Left" Margin="0,1,0,0" Grid.Row="5" VerticalAlignment="Top" Height="83" Width="188" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Grid HorizontalAlignment="Left" Height="64" Margin="0,-5,-2,0" VerticalAlignment="Top" Width="178">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="7*"/>
+                                <ColumnDefinition Width="88*"/>
+                                <ColumnDefinition Width="7*"/>
+                                <ColumnDefinition Width="69*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="26*"/>
+                                <RowDefinition Height="4*"/>
+                                <RowDefinition Height="25*"/>
+                                <RowDefinition Height="4*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="maxTempLabel" Content="Максимальная" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"/>
+                            <Label x:Name="minTempLabel" Content="Минимальная" Grid.Column="1" Height="25" Grid.Row="3" Width="88" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="maxTempTxt" Grid.Column="3" Height="26" Grid.Row="1" TextWrapping="Wrap" Text="80" Width="69" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="minTempTxt" Grid.Column="3" Height="24" Grid.Row="3" TextWrapping="Wrap" Text="-30" Width="69" Margin="0,1,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </GroupBox>
+                    <Label x:Name="frequency" Content="Частота, Гц" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Width="81" Height="26" Grid.RowSpan="2"/>
+                    <TextBox x:Name="frequencyINSTxtBox" Grid.Column="2" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <GroupBox x:Name="roadKoeffGroup" Header="Коеффициент датчика пути" Grid.Row="7" Grid.ColumnSpan="3" Grid.Column="1">
+                        <Grid HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="259" Margin="0,0,-2,-3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="26*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="25*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="26*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="22*"/>
+                                <RowDefinition Height="4*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="92*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="77*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="78*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="vODOLabel" Content="Vсред, ОДО" Grid.Column="3" Grid.Row="1" VerticalContentAlignment="Center"/>
+                            <Label x:Name="vGPSLabel" Content="Vсред, GPS" Grid.Column="3" Grid.Row="3" VerticalContentAlignment="Center"/>
+                            <Label x:Name="koeffCount" Content="Расчет.коеф" Grid.Column="3" Grid.Row="5" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="vODOTxt" Grid.Column="4" Height="26" Grid.Row="1" TextWrapping="Wrap" Text="0,0000000" Width="81" Grid.ColumnSpan="2" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="vGPSTxt" Grid.Column="5" Height="25" Grid.Row="3" TextWrapping="Wrap" Text="0,0000000" Width="78" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="koeffCountText" Grid.Column="4" Grid.Row="5" TextWrapping="Wrap" Text="0,0000000" Width="81" Grid.ColumnSpan="2" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="koeffTxt" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="0,10077" VerticalContentAlignment="Center"/>
+                            <CheckBox x:Name="koeffChangeCheckBox" Content="Изменить" Grid.Column="3" Grid.Row="7" Height="22" Width="77" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox x:Name="parametreGroupBox" Grid.Column="5" Header="Параметры датчика пути" Grid.Row="7">
+                        <Grid HorizontalAlignment="Left" Height="119" VerticalAlignment="Top" Width="194" Margin="0,0,-2,-2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="24*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="24*"/>
+                                <RowDefinition Height="6*"/>
+                                <RowDefinition Height="25*"/>
+                                <RowDefinition Height="6*"/>
+                                <RowDefinition Height="24*"/>
+                                <RowDefinition Height="3*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="91*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="45*"/>
+                                <ColumnDefinition Width="7*"/>
+                                <ColumnDefinition Width="43*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="label" Content="Имп./оборот" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center"/>
+                            <Label x:Name="label_Copy" Content="Окружность, м" Grid.Row="3" Grid.ColumnSpan="2" VerticalContentAlignment="Center"/>
+                            <Label x:Name="label_Copy1" Content="Длина имп., м" Grid.Row="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="impOborotTxt" Grid.Column="3" Margin="1,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="40" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="okruzhnTxt" Grid.Column="3" Margin="3,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="1.94" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
+                            <TextBox x:Name="dlinaImpTxt" Grid.Column="3" Grid.Row="5" TextWrapping="Wrap" Text="0.001" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
+                            <TextBox x:Name="impOborot2Txt" Grid.Column="5" Height="24" Grid.Row="1" TextWrapping="Wrap" Text="" Width="43" IsEnabled="False"  VerticalContentAlignment="Center"/>
+                            <CheckBox x:Name="parametreChangeCheckBox" Content="Изменить" Grid.Column="3" Grid.Row="7" Height="24" Width="95" Grid.ColumnSpan="3" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox x:Name="groupBox" Grid.Column="4" Header="Включить ИНС" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="124" Grid.RowSpan="3" Width="356">
+                        <Grid HorizontalAlignment="Left" Height="104" VerticalAlignment="Top" Width="346" Margin="0,0,-2,-2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="83*"/>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="7*"/>
+                                <ColumnDefinition Width="117*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="108*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8*"/>
+                                <RowDefinition Height="22*"/>
+                                <RowDefinition Height="4*"/>
+                                <RowDefinition Height="22*"/>
+                                <RowDefinition Height="24*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="15*"/>
+                                <RowDefinition Height="4*"/>
+                            </Grid.RowDefinitions>
+                            <ComboBox x:Name="comPorts" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                            <ComboBox x:Name="baudRates" Grid.Column="3" Grid.Row="1" Margin="1,0,0,0" Grid.ColumnSpan="2"/>
+                            <Button x:Name="insOn" Content="Включить" Grid.Column="7" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="insOn_Click"/>
+                            <ProgressBar Grid.ColumnSpan="7" Grid.Column="1" Grid.Row="6" Name="insProgress"/>
+                            <Label x:Name="latitude" Content="" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"/>
+                            <Label x:Name="longitude" Content="" Grid.Column="4" Grid.Row="4" HorizontalContentAlignment="Center"/>
+                            <Label x:Name="altitude" Content="" Grid.Column="6" Grid.Row="4" Height="24" Width="116" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"/>
+                            <Label x:Name="label2" Content="Latitude" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Height="22" Width="91" VerticalContentAlignment="Center" Padding="0" HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                            <Label x:Name="label2_Copy" Content="Longitude" Grid.Column="4" Grid.Row="3" Width="117" VerticalContentAlignment="Center" Padding="0" HorizontalContentAlignment="Center" Height="22" VerticalAlignment="Top"/>
+                            <Label x:Name="label2_Copy1" Content="Altitude" Grid.Column="7" Grid.Row="3" VerticalContentAlignment="Center" Padding="0" HorizontalContentAlignment="Center" Margin="2,0,0,0" IsEnabled="False"/>
+                            <Label x:Name="connectedLbl" Content="Connected" Visibility="Hidden" Grid.Row="6" Grid.ColumnSpan="8" Height="15" Width="339" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Приемник GPS">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Датчики положения">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Профилометр">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Сканеры">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="IRI">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Георадар">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="ПЗС">
+                <Grid Background="#FFE5E5E5" Margin="-4,-5,4,5"/>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="devicesPrimenitBtn" Content="Применить" Grid.Column="1" Grid.Row="6"/>
+        <Button x:Name="devicesCloseBtn" Content="Закрыть" Grid.Column="3" Grid.Row="6" HorizontalAlignment="Right" Width="126" Click="devicesCloseBtn_Click" />
+        <Image x:Name="image" Grid.Column="5" Grid.Row="2" Source="images/car_top.png" Margin="1,0,0,0"/>
+
+    </Grid>
+</Window>

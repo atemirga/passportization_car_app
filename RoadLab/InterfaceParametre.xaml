@@ -1,0 +1,165 @@
+﻿<Window x:Class="RoadLab.InterfaceParametre"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RoadLab"
+        mc:Ignorable="d"
+        Title="InterfaceParametre" Height="300" Width="500" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="226*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="26*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="153*"/>
+            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl x:Name="interfaceTabControl" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3">
+            <TabItem Header="Метки оператора">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="74*"/>
+                        <RowDefinition Height="21*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="355*"/>
+                        <ColumnDefinition Width="114*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox x:Name="operatorSettingsGroup" Grid.Column="1" Header="Настройки меток оператора" Margin="0,2,0,0" Grid.Row="1" Height="146" Width="355">
+                        <Grid Margin="0,0,-2,-12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15*"/>
+                                <ColumnDefinition Width="70*"/>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="70*"/>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="70*"/>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="70*"/>
+                                <ColumnDefinition Width="15*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="6*"/>
+                                <RowDefinition Height="20*"/>
+                                <RowDefinition Height="6*"/>
+                                <RowDefinition Height="25*"/>
+                                <RowDefinition Height="6*"/>
+                                <RowDefinition Height="20*"/>
+                                <RowDefinition Height="6*"/>
+                                <RowDefinition Height="25*"/>
+                                <RowDefinition Height="6*"/>
+                                <RowDefinition Height="14*"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="mark1Btn" Content="Мост" Grid.Column="1" Grid.Row="3" Click="mark1Btn_Click"/>
+                            <Button x:Name="mark2Btn" Content="Переход" Grid.Column="3" Margin="0" Grid.Row="3" RenderTransformOrigin="2.027,0.5" Click="mark2Btn_Click"/>
+                            <Button x:Name="mark3Btn" Content="ЛЭП"  Click="mark3Btn_Click" Grid.Column="5" Margin="0" Grid.Row="3"/>
+                            <Button x:Name="mark4Btn" Content="Труба"  Click="mark4Btn_Click" Grid.Column="7" Grid.Row="3"/>
+                            <Button x:Name="mark5Btn" Content="Рама"  Click="mark5Btn_Click" Grid.Column="1" Margin="0" Grid.Row="7"/>
+                            <Button x:Name="mark6Btn" Content="Метка"  Click="mark6Btn_Click" Grid.Column="3" Grid.Row="7"/>
+                            <Button x:Name="mark7Btn" Content="Яма"  Click="mark7Btn_Click" Grid.Column="5" Grid.Row="7"/>
+                            <Button x:Name="mark8Btn" Content="Забор"  Click="mark8Btn_Click" Grid.Column="7" Grid.Row="7"/>
+                            <TextBox x:Name="mark1txtBox" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"/>
+                            <TextBox x:Name="mark2txtBox" Grid.Column="3" Grid.Row="1" TextWrapping="Wrap"/>
+                            <TextBox x:Name="mark3txtBox" Grid.Column="5" Grid.Row="1" TextWrapping="Wrap" Margin="0"/>
+                            <TextBox x:Name="mark4txtBox" Grid.Column="7" Grid.Row="1" TextWrapping="Wrap"/>
+                            <TextBox x:Name="mark5txtBox" Grid.Column="3" Grid.Row="5" TextWrapping="Wrap"/>
+                            <TextBox x:Name="mark6txtBox" Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Margin="0"/>
+                            <TextBox x:Name="mark7txtBox" Grid.Column="5" Grid.Row="5" TextWrapping="Wrap" Margin="0" Height="21" VerticalAlignment="Top"/>
+                            <TextBox x:Name="mark8txtBox" Grid.Column="7" Grid.Row="5" TextWrapping="Wrap"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Километраж">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="437*"/>
+                        <ColumnDefinition Width="27*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="22*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="22*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="22*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="22*"/>
+                        <RowDefinition Height="80*"/>
+                    </Grid.RowDefinitions>
+                    <CheckBox x:Name="subtitleFileCheckBox" IsChecked="True" Content="Записывать файл субтитров" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Height="20" Width="182" Margin="0,0,0,1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="kilometerReportCheckBox" IsChecked="True" Content="Отчет километража начинать с нуля" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Height="21" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="zeroKmScannerReadCheckBox" IsChecked="True" Content="Не записывать данные от сканеров, если скорость 0 км/ч в течении секунд" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" Height="21" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="samePathCheckBox"  Content="Заезды с общей страекторией" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="7" Height="21" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="zeroKmTxtBox" Grid.Column="2" Height="21" Grid.Row="5" TextWrapping="Wrap" Text="5" Width="27" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Калибровка">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="437*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15*"/>
+                        <RowDefinition Height="28*"/>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="28*"/>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="28*"/>
+                        <RowDefinition Height="107*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="warningLbl" Content="Используется только во время текущего сеанса работы с программой!" Grid.Column="1" Grid.Row="1" Width="413" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
+                    <RadioButton x:Name="fullFrame" Content="Полные кадры" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Height="25" VerticalContentAlignment="Center" Width="189"/>
+                    <RadioButton x:Name="halfFrame" Content="Половинные кадры" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" Height="25" Width="143" VerticalContentAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Навигация">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="19*"/>
+                        <RowDefinition Height="126*"/>
+                        <RowDefinition Height="53*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="29*"/>
+                        <ColumnDefinition Width="246*"/>
+                        <ColumnDefinition Width="202*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox x:Name="navProgramGroupBox" Header="Внешняя навигационная программа" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" Height="126" Width="246">
+                        <Grid Height="105" Margin="0,0,-2,-1" Width="236">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="55*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="7*"/>
+                                <RowDefinition Height="27*"/>
+                                <RowDefinition Height="29*"/>
+                                <RowDefinition Height="28*"/>
+                                <RowDefinition Height="14*"/>
+                            </Grid.RowDefinitions>
+                            <RadioButton x:Name="oziExploerRadio" Content="OziExploer" Grid.Column="1" Grid.Row="1" Height="27" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
+                            <RadioButton x:Name="gisRadio" Content="GIS Rx" IsChecked="True" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Height="28" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="interfacePrimenitBtn" Content="Применить" Grid.Column="1" Grid.Row="3" Width="86" Height="26"/>
+        <Button x:Name="interfaceCloseBtn" Content="Закрыть" Grid.Column="3" Grid.Row="3" Width="87" Height="26" HorizontalAlignment="Right" Click="interfaceCloseBtn_Click"/>
+
+    </Grid>
+</Window>
